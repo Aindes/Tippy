@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432862172382",
+    "project_id": "fir-auth-6f0f8",
+    "storage_bucket": "fir-auth-6f0f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432862172382:android:df37b36418e064f21fde4f",
+        "android_client_info": {
+          "package_name": "com.example.tippy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5fRa2YmtwArJuWe-krs9aBLTvAcyPIds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
