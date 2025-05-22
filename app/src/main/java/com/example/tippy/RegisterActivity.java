@@ -45,7 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Pindah ke login
         tvLogin.setOnClickListener(view -> {
-            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            intent.putExtra("fromRegister", true);
+            startActivity(intent);
             finish();
         });
 
@@ -95,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
 
                             // Pindah ke Home atau Login
-                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, "Gagal daftar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

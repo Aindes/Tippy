@@ -2,6 +2,8 @@ package com.example.tippy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
@@ -18,7 +20,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin;
     private TextView tvRegister;
-
+    private ImageView ivEye;
+    private boolean isPasswordVisible = false;
     private FirebaseAuth mAuth;
 
     @Override
@@ -29,7 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Cek apakah user sudah login
-        if (mAuth.getCurrentUser() != null) {
+        boolean fromRegister = getIntent().getBooleanExtra("fromRegister", false);
+
+// Cek apakah user sudah login dan BUKAN dari "Masuk sekarang"
+        if (mAuth.getCurrentUser() != null && !fromRegister) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }
@@ -38,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
         tvRegister = findViewById(R.id.tv_login);
+        ivEye = findViewById(R.id.iv_eye);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
+        ivEye.setOnClickListener(view -> togglePasswordVisibility());
+
     }
 
     private void loginUser() {
@@ -81,5 +91,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            ivEye.setImageResource(R.drawable.ic_eye); // ikon mata tertutup
+        } else {
+            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            ivEye.setImageResource(R.drawable.ic_eye_off); // ikon mata terbuka
+        }
+        isPasswordVisible = !isPasswordVisible;
+        etPassword.setSelection(etPassword.getText().length()); // cursor tetap di akhir
     }
 }
