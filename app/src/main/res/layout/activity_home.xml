@@ -4,41 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
+        android:orientation="vertical">
 
-        <!-- Header -->
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#FF5F7E"
-            android:padding="12dp"
-            android:paddingStart="30dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_logo"
-                android:contentDescription="Logo"
-                android:layout_marginEnd="12dp" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_home"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#FF5F7E"
+                android:paddingStart="20dp"
+                android:paddingEnd="8dp"
+                app:title=""
+                app:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tippy"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-        <!-- Menu -->
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_logo"
+                        android:contentDescription="Logo"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tippy"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Grid Menu -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +62,7 @@
 
             <!-- Card 1: Stok Barang -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardStokBarang"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -61,6 +75,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:background="@color/white"
                     android:padding="30dp">
 
                     <ImageView
@@ -74,7 +89,8 @@
                         android:layout_height="wrap_content"
                         android:text="Stok Barang"
                         android:layout_marginTop="8dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -93,6 +109,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:background="@color/white"
                     android:padding="30dp">
 
                     <ImageView
@@ -106,12 +123,14 @@
                         android:layout_height="wrap_content"
                         android:text="Daftar Supplier"
                         android:layout_marginTop="8dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Card 3: Pengiriman -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardPengiriman"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -124,6 +143,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:background="@color/white"
                     android:padding="30dp">
 
                     <ImageView
@@ -137,12 +157,14 @@
                         android:layout_height="wrap_content"
                         android:text="Pengiriman"
                         android:layout_marginTop="8dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Card 4: Keuangan -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardKeuangan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -155,6 +177,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:background="@color/white"
                     android:padding="30dp">
 
                     <ImageView
@@ -168,7 +191,8 @@
                         android:layout_height="wrap_content"
                         android:text="Keuangan"
                         android:layout_marginTop="8dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

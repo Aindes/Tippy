@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
@@ -27,12 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register); // Pastikan ini file XML yang kamu pakai
+        setContentView(R.layout.activity_register);
 
-        // Firebase Auth
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.pink2));
+
         mAuth = FirebaseAuth.getInstance();
 
-        // Hubungkan view
         etUsername = findViewById(R.id.et_username);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -40,10 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         tvLogin = findViewById(R.id.tv_login);
 
-        // Tombol daftar
         btnRegister.setOnClickListener(view -> createAccount());
 
-        // Pindah ke login
         tvLogin.setOnClickListener(view -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             intent.putExtra("fromRegister", true);
@@ -51,28 +50,26 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         });
 
-        // Toggle password visibility
         ivEye.setOnClickListener(view -> togglePasswordVisibility());
     }
 
     private void togglePasswordVisibility() {
         if (isPasswordVisible) {
             etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            ivEye.setImageResource(R.drawable.ic_eye); // Ganti sesuai nama drawable kamu (ikon mata tertutup)
+            ivEye.setImageResource(R.drawable.ic_eye_off);
         } else {
             etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            ivEye.setImageResource(R.drawable.ic_eye_off); // Ganti sesuai drawable ikon mata terbuka
+            ivEye.setImageResource(R.drawable.ic_eye);
         }
         isPasswordVisible = !isPasswordVisible;
-        etPassword.setSelection(etPassword.length()); // Tetap di akhir teks
+        etPassword.setSelection(etPassword.length());
     }
 
     private void createAccount() {
-        String username = etUsername.getText().toString().trim(); // belum dipakai
+        String username = etUsername.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validasi
         if (TextUtils.isEmpty(username)) {
             etUsername.setError("Username wajib diisi");
             return;
@@ -88,21 +85,17 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Buat user di Firebase
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
-
-                            // Pindah ke Home atau Login
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                            finish();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Gagal daftar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Gagal daftar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

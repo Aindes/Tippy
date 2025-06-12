@@ -2,45 +2,65 @@ package com.example.tippy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import androidx.cardview.widget.CardView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
+import com.example.tippy.stokBarang.StokActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
-    CardView daftarSupplierCard;
-    // CardView stokBarangCard, pengirimanCard, keuanganCard; // Masih belum aktif
+    CardView daftarSupplierCard, stokBarangCard;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        daftarSupplierCard = findViewById(R.id.cardDaftarSupplier);
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.pink_primary));
 
-        daftarSupplierCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        mAuth = FirebaseAuth.getInstance();
+
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_home);
+        setSupportActionBar(toolbar);
+
+        daftarSupplierCard = findViewById(R.id.cardDaftarSupplier);
+        stokBarangCard = findViewById(R.id.cardStokBarang);
+
+        daftarSupplierCard.setOnClickListener(v -> {
+
         });
 
-        // stokBarangCard = findViewById(R.id.cardStokBarang);
-        // pengirimanCard = findViewById(R.id.cardPengiriman);
-        // keuanganCard = findViewById(R.id.cardKeuangan);
+        stokBarangCard.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, StokActivity.class);
+            startActivity(intent);
+        });
+    }
 
-        // stokBarangCard.setOnClickListener(v -> {
-        //     // Fitur belum tersedia
-        // });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
 
-        // pengirimanCard.setOnClickListener(v -> {
-        //     // Fitur belum tersedia
-        // });
-
-        // keuanganCard.setOnClickListener(v -> {
-        //     // Fitur belum tersedia
-        // });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            mAuth.signOut();
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
