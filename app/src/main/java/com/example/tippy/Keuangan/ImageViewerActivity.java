@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.tippy.R;
-import com.bumptech.glide.Glide; // Import Glide
+import com.bumptech.glide.Glide;
 
 public class ImageViewerActivity extends AppCompatActivity {
 
-    public static final String EXTRA_IMAGE_URI = "image_uri"; // Sekarang akan menerima URL Firebase Storage
+    public static final String EXTRA_IMAGE_URI = "image_uri";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class ImageViewerActivity extends AppCompatActivity {
         String imageUriString = getIntent().getStringExtra(EXTRA_IMAGE_URI);
 
         if (imageUriString != null && !imageUriString.isEmpty()) {
-            // Gunakan Glide untuk memuat gambar dari URL Firebase Storage
             Glide.with(this)
                     .load(imageUriString)
                     .placeholder(R.drawable.ic_placeholder_image)

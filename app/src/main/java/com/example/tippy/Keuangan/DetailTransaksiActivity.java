@@ -34,8 +34,8 @@ public class DetailTransaksiActivity extends AppCompatActivity {
     public static final String EXTRA_JUMLAH_TRANSAKSI = "extra_jumlah_transaksi";
     public static final String EXTRA_DESKRIPSI_TRANSAKSI = "extra_deskripsi_transaksi";
     public static final String EXTRA_TANGGAL_TRANSAKSI = "extra_tanggal_transaksi";
-    public static final String EXTRA_PATH_NOTA = "extra_path_nota"; // Ini akan jadi URL nota
-    public static final String EXTRA_POSITION = "extra_position"; // Posisi di RecyclerView (lokal)
+    public static final String EXTRA_PATH_NOTA = "extra_path_nota";
+    public static final String EXTRA_POSITION = "extra_position";
 
     private TextView tvDetailJenis;
     private TextView tvDetailJumlah;
@@ -45,9 +45,9 @@ public class DetailTransaksiActivity extends AppCompatActivity {
     private Button btnEditTransaksi;
     private Button btnHapusTransaksi;
 
-    private String currentNotaPath; // Sekarang ini adalah URL nota dari Firebase Storage
+    private String currentNotaPath;
     private int currentPosition;
-    private String currentTransaksiId; // ID dokumen dari Firestore
+    private String currentTransaksiId;
 
     private FirebaseFirestore db;
     private FirebaseStorage storage;
@@ -66,7 +66,6 @@ public class DetailTransaksiActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Transaksi");
         }
 
-        // Inisialisasi Firebase
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
@@ -80,7 +79,7 @@ public class DetailTransaksiActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            currentTransaksiId = intent.getStringExtra(Constants.EXTRA_TRANSAKSI_ID); // Ambil ID transaksi
+            currentTransaksiId = intent.getStringExtra(Constants.EXTRA_TRANSAKSI_ID);
             String jenis = intent.getStringExtra(EXTRA_JENIS_TRANSAKSI);
             double jumlah = intent.getDoubleExtra(EXTRA_JUMLAH_TRANSAKSI, 0.0);
             String deskripsi = intent.getStringExtra(EXTRA_DESKRIPSI_TRANSAKSI);
@@ -98,19 +97,17 @@ public class DetailTransaksiActivity extends AppCompatActivity {
             tvDetailTanggal.setText(tanggal);
 
             if (currentNotaPath != null && !currentNotaPath.isEmpty()) {
-                // Gunakan Glide untuk memuat gambar dari URL Firebase Storage
                 Glide.with(this)
                         .load(currentNotaPath)
                         .placeholder(R.drawable.ic_placeholder_image)
                         .into(ivNotaThumbnailDetail);
                 ivNotaThumbnailDetail.setVisibility(View.VISIBLE);
 
-                // Tambahkan OnClickListener untuk melihat gambar penuh
                 ivNotaThumbnailDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent imageViewerIntent = new Intent(DetailTransaksiActivity.this, ImageViewerActivity.class);
-                        imageViewerIntent.putExtra(Constants.EXTRA_IMAGE_URI, currentNotaPath); // Kirim URL nota
+                        imageViewerIntent.putExtra(Constants.EXTRA_IMAGE_URI, currentNotaPath);
                         startActivity(imageViewerIntent);
                     }
                 });
@@ -124,7 +121,6 @@ public class DetailTransaksiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent editIntent = new Intent(DetailTransaksiActivity.this, TambahTransaksiActivity.class);
 
-                // Kirim ID transaksi untuk mode edit
                 editIntent.putExtra(Constants.EXTRA_TRANSAKSI_ID, currentTransaksiId);
                 editIntent.putExtra(TambahTransaksiActivity.EXTRA_TRANSAKSI_JENIS, tvDetailJenis.getText().toString());
 
@@ -139,9 +135,9 @@ public class DetailTransaksiActivity extends AppCompatActivity {
                 editIntent.putExtra(TambahTransaksiActivity.EXTRA_TRANSAKSI_JUMLAH, jumlahTanpaFormat);
                 editIntent.putExtra(TambahTransaksiActivity.EXTRA_TRANSAKSI_DESKRIPSI, tvDetailDeskripsi.getText().toString());
                 editIntent.putExtra(TambahTransaksiActivity.EXTRA_TRANSAKSI_TANGGAL, tvDetailTanggal.getText().toString());
-                editIntent.putExtra(TambahTransaksiActivity.EXTRA_PATH_NOTA, currentNotaPath); // Kirim URL nota yang ada
+                editIntent.putExtra(TambahTransaksiActivity.EXTRA_PATH_NOTA, currentNotaPath);
                 editIntent.putExtra(Constants.EXTRA_EDIT_MODE, true);
-                editIntent.putExtra(Constants.EXTRA_POSITION, currentPosition); // Posisi lokal
+                editIntent.putExtra(Constants.EXTRA_POSITION, currentPosition);
 
                 startActivityForResult(editIntent, Constants.REQUEST_CODE_EDIT_TRANSAKSI);
             }
@@ -172,11 +168,9 @@ public class DetailTransaksiActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "Dokumen transaksi berhasil dihapus dari Firestore.");
-                            // Jika ada nota, hapus juga dari Storage
                             if (currentNotaPath != null && !currentNotaPath.isEmpty()) {
                                 deleteNotaFromFirebaseStorage(currentNotaPath);
                             } else {
-                                // Jika tidak ada nota, langsung kirim hasil dan selesai
                                 sendDeleteResultAndFinish();
                             }
                             Toast.makeText(DetailTransaksiActivity.this, "Transaksi berhasil dihapus!", Toast.LENGTH_SHORT).show();
@@ -194,7 +188,6 @@ public class DetailTransaksiActivity extends AppCompatActivity {
 
     private void deleteNotaFromFirebaseStorage(String notaUrl) {
         try {
-            // Dapatkan referensi storage dari URL
             StorageReference photoRef = storage.getReferenceFromUrl(notaUrl);
             photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -206,20 +199,19 @@ public class DetailTransaksiActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     Log.e(TAG, "Error menghapus nota dari Firebase Storage: " + exception.getMessage());
-                    // Tetap kirim hasil delete ke ListTransaksiActivity meskipun gagal menghapus nota
                     sendDeleteResultAndFinish();
                 }
             });
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Invalid Firebase Storage URL for deletion: " + e.getMessage());
-            sendDeleteResultAndFinish(); // Lanjut meskipun URL tidak valid atau format salah
+            sendDeleteResultAndFinish();
         }
     }
 
     private void sendDeleteResultAndFinish() {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Constants.EXTRA_POSITION, currentPosition);
-        resultIntent.putExtra(Constants.EXTRA_TRANSAKSI_ID, currentTransaksiId); // Kirim ID yang dihapus
+        resultIntent.putExtra(Constants.EXTRA_TRANSAKSI_ID, currentTransaksiId);
         setResult(Constants.RESULT_CODE_DELETE_TRANSAKSI, resultIntent);
         finish();
     }
@@ -228,11 +220,8 @@ public class DetailTransaksiActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CODE_EDIT_TRANSAKSI && resultCode == Activity.RESULT_OK && data != null) {
-            // Setelah edit, DetailTransaksiActivity perlu diperbarui atau ditutup
-            // Karena data akan dimuat ulang di ListTransaksiActivity, cukup tutup DetailTransaksiActivity ini
-            // dan set result OK agar ListTransaksiActivity tahu ada perubahan
-            setResult(Activity.RESULT_OK); // Beri sinyal ke ListTransaksiActivity bahwa ada perubahan
-            finish(); // Tutup DetailTransaksiActivity
+            setResult(Activity.RESULT_OK);
+            finish();
         }
     }
 

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.tippy.Keuangan.model.TransaksiTemp; // Menggunakan TransaksiTemp
+import com.example.tippy.Keuangan.model.TransaksiTemp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTambahTransaksi;
     private Button btnLihatDaftarTransaksi;
     private ArrayList<TransaksiTemp> transaksiList = new ArrayList<>();
-    private FirebaseFirestore db; // Objek Firebase Firestore
+    private FirebaseFirestore db;
 
     private static final String TAG = "KeuanganMainActivity";
 
@@ -46,13 +46,11 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Fitur Keuangan");
         }
 
-        // Inisialisasi Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
         btnTambahTransaksi = findViewById(R.id.btn_tambah_transaksi);
         btnLihatDaftarTransaksi = findViewById(R.id.btn_lihat_daftar_transaksi);
 
-        // Muat data transaksi saat aplikasi dimulai atau kembali ke MainActivity
         loadTransaksiFromFirestore();
 
         btnTambahTransaksi.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Belum ada transaksi ditambahkan.", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(MainActivity.this, ListTransaksiActivity.class);
-                    // Kirim list transaksi yang sudah dimuat ke ListTransaksiActivity
                     intent.putExtra(ListTransaksiActivity.EXTRA_TRANSAKSI_LIST, (Serializable) transaksiList);
                     startActivityForResult(intent, Constants.REQUEST_CODE_LIST_TRANSAKSI);
                 }
@@ -79,26 +76,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadTransaksiFromFirestore() {
-        // Mengambil data dari koleksi "transaksi" di Firestore
         db.collection("transaksi")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            transaksiList.clear(); // Bersihkan list yang sudah ada
+                            transaksiList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Mengkonversi dokumen Firestore menjadi objek TransaksiTemp
                                 TransaksiTemp transaksi = document.toObject(TransaksiTemp.class);
                                 transaksi.setId(document.getId()); // Set ID dokumen dari Firestore
                                 transaksiList.add(transaksi);
                             }
-                            // Urutkan transaksi (misalnya berdasarkan tanggal, jika format tanggal memungkinkan)
                             Collections.sort(transaksiList, new Comparator<TransaksiTemp>() {
                                 @Override
                                 public int compare(TransaksiTemp t1, TransaksiTemp t2) {
-                                    // Asumsi tanggal dalam format yang bisa dibandingkan sebagai String, e.g., "DD MMMM YYYY"
-                                    // Untuk perbandingan tanggal yang lebih akurat, konversi ke Date objek
+
                                     return t1.getTanggal().compareTo(t2.getTanggal());
                                 }
                             });
@@ -115,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Setelah kembali dari TambahTransaksiActivity atau ListTransaksiActivity,
-        // muat ulang data dari Firestore untuk memastikan list terupdate
         if (requestCode == Constants.REQUEST_CODE_ADD_TRANSAKSI ||
                 requestCode == Constants.REQUEST_CODE_LIST_TRANSAKSI) {
             if (resultCode == RESULT_OK || resultCode == Constants.RESULT_CODE_DELETE_TRANSAKSI) {

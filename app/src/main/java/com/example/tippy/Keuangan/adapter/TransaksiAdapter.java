@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tippy.R;
-import com.example.tippy.Keuangan.model.TransaksiTemp; // Menggunakan TransaksiTemp
-import com.bumptech.glide.Glide; // Import Glide
+import com.example.tippy.Keuangan.model.TransaksiTemp;
+import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -56,7 +56,6 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.Tran
         String notaPath = transaksi.getNotaPath();
         if (notaPath != null && !notaPath.isEmpty()) {
             holder.ivNotaThumbnail.setVisibility(View.VISIBLE);
-            // Gunakan Glide untuk memuat gambar dari URL Firebase Storage
             Glide.with(context)
                     .load(notaPath)
                     .placeholder(R.drawable.ic_placeholder_image)

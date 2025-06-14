@@ -2,7 +2,7 @@ package com.example.tippy.Keuangan.model;
 import java.io.Serializable;
 
 public class Transaksi implements Serializable {
-    private String jenis; // Pemasukan/Pengeluaran
+    private String jenis;
     private double jumlah;
     private String deskripsi;
     private String tanggal;

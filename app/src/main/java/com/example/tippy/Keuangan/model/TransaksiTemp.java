@@ -5,15 +5,14 @@ import com.google.firebase.firestore.PropertyName;
 import java.io.Serializable;
 
 public class TransaksiTemp implements Serializable {
-    private String id; // Tambahkan ID untuk referensi dokumen Firestore
+    private String id;
     private String jenis;
     private double jumlah;
     private String deskripsi;
     private String tanggal;
-    private String notaPath; // Ini akan menjadi URL Cloud Storage
+    private String notaPath;
 
     public TransaksiTemp() {
-        // Diperlukan untuk deserialisasi Firestore
     }
 
     public TransaksiTemp(String jenis, double jumlah, String deskripsi, String tanggal, String notaPath) {
@@ -24,7 +23,6 @@ public class TransaksiTemp implements Serializable {
         this.notaPath = notaPath;
     }
 
-    // Constructor dengan ID untuk data dari Firestore
     public TransaksiTemp(String id, String jenis, double jumlah, String deskripsi, String tanggal, String notaPath) {
         this.id = id;
         this.jenis = jenis;
@@ -43,7 +41,7 @@ public class TransaksiTemp implements Serializable {
         this.id = id;
     }
 
-    @PropertyName("jenis") // Contoh jika nama field di Firestore adalah 'jenis'
+    @PropertyName("jenis")
     public String getJenis() {
         return jenis;
     }
