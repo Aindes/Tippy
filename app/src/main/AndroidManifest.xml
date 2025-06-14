@@ -48,5 +48,13 @@
             android:label="Tambah/Edit Barang"
             android:parentActivityName=".stokBarang.StokActivity"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".Pengiriman.PengirimanActivity" />
+        <activity android:name=".Pengiriman.TambahPengiriman" />
+        <activity android:name=".Pengiriman.DetailPengiriman" />
+
+        <activity
+            android:name=".Pengiriman.EditPengiriman"
+            android:exported="false" />
     </application>
 </manifest>

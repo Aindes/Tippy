@@ -4,19 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.example.tippy.Pengiriman.PengirimanActivity;
 import com.example.tippy.stokBarang.StokActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
-    CardView daftarSupplierCard, stokBarangCard;
+    CardView daftarSupplierCard, stokBarangCard, pengirimanCard;
     private FirebaseAuth mAuth;
 
     @Override
@@ -28,19 +29,22 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
 
         daftarSupplierCard = findViewById(R.id.cardDaftarSupplier);
         stokBarangCard = findViewById(R.id.cardStokBarang);
-
+        pengirimanCard = findViewById(R.id.cardPengiriman);
         daftarSupplierCard.setOnClickListener(v -> {
-
         });
 
         stokBarangCard.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, StokActivity.class);
+            startActivity(intent);
+        });
+
+        pengirimanCard.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, PengirimanActivity.class);
             startActivity(intent);
         });
     }
