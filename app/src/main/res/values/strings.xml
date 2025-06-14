@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Tippy</string>
+    <string name="daftar_supplier">Daftar Supplier</string>
+    <string name="tambah_supplier">Tambah Supplier</string>
+    <string name="edit_supplier">Edit Supplier</string>
+    <string name="nama_supplier">Nama Supplier</string>
+    <string name="kontak_supplier">Kontak Supplier</string>
+    <string name="update">Update</string>
+    <string name="simpan">Simpan</string>
+    <string name="perbarui">Perbarui</string>
+    <string name="deskripsi_produk">Deskripsi Produk Supplier</string>
+    <string name="back">Kembali</string>
+    <string name="gambar_supplier">Gambar Supplier</string>
+    <string name="ubah_gambar">Ubah Gambar</string>
+    <string name="pilih_gambar">Pilih Gambar</string>
+    <string name="stok_barang">Stok Barang</string>
+    <string name="hapus">Hapus</string>
 </resources>

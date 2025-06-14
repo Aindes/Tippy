@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.example.tippy.DaftarSupplier.DaftarSupplier;
 import com.example.tippy.Pengiriman.PengirimanActivity;
 import com.example.tippy.stokBarang.StokActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,11 @@ public class HomeActivity extends AppCompatActivity {
         stokBarangCard = findViewById(R.id.cardStokBarang);
         pengirimanCard = findViewById(R.id.cardPengiriman);
         daftarSupplierCard.setOnClickListener(v -> {
+        });
+
+        daftarSupplierCard.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, DaftarSupplier.class);
+            startActivity(intent);
         });
 
         stokBarangCard.setOnClickListener(v -> {

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_supplier"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_supplier_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/nama_supplier"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/img_supplier"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_update"
+            android:layout_marginStart="10dp" />
+
+        <TextView
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp" />
+
+        <TextView
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hapus"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_update"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="4dp" />
+
+        <ImageView
+            android:id="@+id/img_email"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_email"
+            app:layout_constraintStart_toEndOf="@id/img_supplier"
+            app:layout_constraintTop_toBottomOf="@id/txt_supplier_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/txt_supplier_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="email@gmail.com"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/img_email"
+            app:layout_constraintTop_toBottomOf="@id/txt_supplier_name" app:layout_constraintEnd_toStartOf="@id/btn_delete"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp" />
+
+        <ImageView
+            android:id="@+id/img_desc"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_desc"
+            app:layout_constraintStart_toEndOf="@id/img_supplier"
+            app:layout_constraintTop_toBottomOf="@id/txt_supplier_email"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/txt_supplier_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/deskripsi_produk"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/img_desc"
+            app:layout_constraintTop_toBottomOf="@id/txt_supplier_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

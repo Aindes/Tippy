@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -49,12 +51,43 @@
             android:parentActivityName=".stokBarang.StokActivity"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".Pengiriman.PengirimanActivity" />
-        <activity android:name=".Pengiriman.TambahPengiriman" />
-        <activity android:name=".Pengiriman.DetailPengiriman" />
+        <activity android:name=".Pengiriman.PengirimanActivity"
+            android:exported="false"
+            android:label="Pengiriman"
+            android:parentActivityName=".HomeActivity" />
 
+        <activity android:name=".Pengiriman.TambahPengiriman"
+            android:exported="false"
+            android:label="Tambah Pengiriman"
+            android:parentActivityName=".Pengiriman.PengirimanActivity" />
+        <activity android:name=".Pengiriman.DetailPengiriman"
+            android:exported="false"
+            android:label="Detail Pengiriman"
+            android:parentActivityName=".Pengiriman.PengirimanActivity" />
         <activity
             android:name=".Pengiriman.EditPengiriman"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Edit Pengiriman"
+            android:parentActivityName=".Pengiriman.DetailPengiriman" />
+
+        <activity
+            android:name=".DaftarSupplier.DaftarSupplier"
+            android:exported="false"
+            android:label="Daftar Supplier"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".DaftarSupplier.EditSupplier"
+            android:exported="false"
+            android:label="Edit Supplier"
+            android:parentActivityName=".DaftarSupplier.DaftarSupplier" />
+
+        <activity
+            android:name=".DaftarSupplier.TambahSupplier"
+            android:exported="false"
+            android:label="Tambah Supplier"
+            android:parentActivityName=".DaftarSupplier.DaftarSupplier"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 </manifest>

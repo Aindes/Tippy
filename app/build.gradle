@@ -30,26 +30,28 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
-    implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
-    implementation libs.firebase.auth
+
+    // Firebase Auth dan Google Sign-in
+    implementation platform('com.google.firebase:firebase-bom:33.13.0') // Pastikan ini yang paling atas untuk Firebase
+    implementation 'com.google.firebase:firebase-auth' // Tidak perlu versi spesifik jika ada BOM
+    implementation 'com.google.firebase:firebase-firestore' // Tidak perlu versi spesifik jika ada BOM
+    implementation 'com.google.firebase:firebase-storage' // Tidak perlu versi spesifik jika ada BOM
+
     implementation libs.credentials
     implementation libs.credentials.play.services.auth
     implementation libs.googleid
+
+    // Glide - Hanya satu versi
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+
+    // Material Design - Pastikan ini hanya satu dan versi terbaru
+    implementation 'com.google.android.material:material:1.12.0' // Ini sudah benar untuk Material3
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation platform('com.google.firebase:firebase-bom:33.13.0')
-    implementation 'com.google.firebase:firebase-auth:23.2.0'
-    implementation 'androidx.credentials:credentials:1.5.0'
-    implementation 'androidx.credentials:credentials-play-services-auth:1.5.0'
-    implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
-    implementation 'com.google.firebase:firebase-firestore:25.1.4'
 }
