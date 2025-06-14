@@ -1,4 +1,9 @@
 <resources>
+    <string-array name="jenis_transaksi_array">
+        <item>Pemasukan</item>
+        <item>Pengeluaran</item>
+    </string-array>
+
     <string name="app_name">Tippy</string>
     <string name="daftar_supplier">Daftar Supplier</string>
     <string name="tambah_supplier">Tambah Supplier</string>
@@ -15,4 +20,7 @@
     <string name="pilih_gambar">Pilih Gambar</string>
     <string name="stok_barang">Stok Barang</string>
     <string name="hapus">Hapus</string>
+    <string name="tambah_transaksi">Tambah Transaksi</string>
+    <string name="lihat_transaksi">Lihat Daftar Transaksi</string>
+    <string name="nota_image_desc">Gambar nota transaksi</string>
 </resources>

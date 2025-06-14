@@ -89,5 +89,37 @@
             android:parentActivityName=".DaftarSupplier.DaftarSupplier"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".Keuangan.MainActivity"
+            android:exported="false"
+            android:label="Keuangan"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".Keuangan.TambahTransaksiActivity"
+            android:exported="false"
+            android:label="Tambah Transaksi"
+            android:parentActivityName=".HomeActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".Keuangan.DetailTransaksiActivity"
+            android:exported="false"
+            android:label="Detail Transaksi"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".Keuangan.ListTransaksiActivity"
+            android:exported="false"
+            android:label="Daftar Transaksi"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".Keuangan.ImageViewerActivity"
+            android:exported="false"
+            android:label="Lihat Nota"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".HomeActivity" />
+
     </application>
 </manifest>

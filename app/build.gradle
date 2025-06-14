@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tippy"
-        minSdk 28
+        minSdk 29
         targetSdk 35
         versionCode 1
         versionName "1.0"
@@ -34,23 +34,27 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
 
-    // Firebase Auth dan Google Sign-in
-    implementation platform('com.google.firebase:firebase-bom:33.13.0') // Pastikan ini yang paling atas untuk Firebase
-    implementation 'com.google.firebase:firebase-auth' // Tidak perlu versi spesifik jika ada BOM
-    implementation 'com.google.firebase:firebase-firestore' // Tidak perlu versi spesifik jika ada BOM
-    implementation 'com.google.firebase:firebase-storage' // Tidak perlu versi spesifik jika ada BOM
+    // Firebase BoM (Bill of Materials) - Sudah benar
+    implementation platform('com.google.firebase:firebase-bom:33.13.0')
 
+    // Dependensi Firebase individual - Sudah benar
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-storage'
+
+    // Dependensi Google Sign-in dan Credentials - Sudah benar
     implementation libs.credentials
     implementation libs.credentials.play.services.auth
     implementation libs.googleid
 
-    // Glide - Hanya satu versi
+    // Glide - Sudah benar
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
-    // Material Design - Pastikan ini hanya satu dan versi terbaru
-    implementation 'com.google.android.material:material:1.12.0' // Ini sudah benar untuk Material3
+    // Material Design - Sudah benar
+    implementation 'com.google.android.material:material:1.12.0'
 
+    // Dependensi untuk Testing - Sudah benar
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

@@ -12,13 +12,14 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.example.tippy.DaftarSupplier.DaftarSupplier;
+import com.example.tippy.Keuangan.MainActivity;
 import com.example.tippy.Pengiriman.PengirimanActivity;
 import com.example.tippy.stokBarang.StokActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
-    CardView daftarSupplierCard, stokBarangCard, pengirimanCard;
+    CardView daftarSupplierCard, stokBarangCard, pengirimanCard, keuanganCard;
     private FirebaseAuth mAuth;
 
     @Override
@@ -36,8 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         daftarSupplierCard = findViewById(R.id.cardDaftarSupplier);
         stokBarangCard = findViewById(R.id.cardStokBarang);
         pengirimanCard = findViewById(R.id.cardPengiriman);
-        daftarSupplierCard.setOnClickListener(v -> {
-        });
+        keuanganCard = findViewById(R.id.cardKeuangan);
 
         daftarSupplierCard.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, DaftarSupplier.class);
@@ -51,6 +51,11 @@ public class HomeActivity extends AppCompatActivity {
 
         pengirimanCard.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, PengirimanActivity.class);
+            startActivity(intent);
+        });
+
+        keuanganCard.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             startActivity(intent);
         });
     }
